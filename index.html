@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ms" dir="ltr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Misi Bubur Lambuk — Dashboard Live</title>
+  <meta name="description"
+    content="Dashboard kempen infaq bubur lambuk sedekah Ramadan 2026. Pantau kutipan, penyumbang, dan progress secara real-time." />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- ============ PARTICLES BACKGROUND ============ -->
+  <div class="particles" id="particles"></div>
+
+  <!-- ============ MAIN CONTAINER ============ -->
+  <div class="container">
+
+    <!-- ============ HEADER ============ -->
+    <header class="header">
+      <div class="header-badge">🌙 RAMADAN 2026</div>
+      <h1 class="header-title">Misi Bubur Lambuk</h1>
+      <p class="header-subtitle" id="headerSubtitle"></p>
+      <div class="header-live-badge" id="liveBadge">
+        <span class="live-dot"></span> LIVE
+      </div>
+    </header>
+
+    <!-- ============ TARGET ACHIEVED BANNER ============ -->
+    <div class="target-achieved-banner" id="targetAchievedBanner">
+      <div class="achieved-icon">🏆</div>
+      <div class="achieved-text">
+        <strong>ALHAMDULILLAH! TARGET TERCAPAI!</strong>
+        <span>Bonus mode aktif — setiap pax tambahan adalah sedekah lebihan!</span>
+      </div>
+    </div>
+
+    <!-- ============ PROGRESS SECTION ============ -->
+    <section class="progress-section">
+      <div class="progress-ring-wrapper">
+        <svg class="progress-ring" viewBox="0 0 200 200">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#10b981" />
+              <stop offset="50%" stop-color="#f59e0b" />
+              <stop offset="100%" stop-color="#8b5cf6" />
+            </linearGradient>
+          </defs>
+          <circle class="progress-ring-bg" cx="100" cy="100" r="88" />
+          <circle class="progress-ring-fill" id="progressRing" cx="100" cy="100" r="88" />
+        </svg>
+        <div class="progress-ring-text">
+          <span class="progress-pax" id="progressPax">500</span>
+          <span class="progress-label">/ <span id="targetPax">2000</span> PAX</span>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📦</div>
+          <div class="stat-value" id="statTerkumpul">500</div>
+          <div class="stat-label">Terkumpul</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-value" id="statBaki">1500</div>
+          <div class="stat-label">Baki Pax</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-icon">💰</div>
+          <div class="stat-value">RM <span id="statRM">2,500</span></div>
+          <div class="stat-label">Jumlah RM</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏱️</div>
+          <div class="stat-value" id="statPercentage">25%</div>
+          <div class="stat-label">Siap</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PAKEJ INFAQ ============ -->
+    <section class="packages-section">
+      <h2 class="section-title">💎 Pakej Infaq</h2>
+      <div class="packages-grid">
+        <button class="pkg-card" data-pax="1" onclick="selectPackage(1)">
+          <span class="pkg-pax">1</span>
+          <span class="pkg-unit">PAX</span>
+          <span class="pkg-price">RM5</span>
+        </button>
+        <button class="pkg-card" data-pax="5" onclick="selectPackage(5)">
+          <span class="pkg-pax">5</span>
+          <span class="pkg-unit">PAX</span>
+          <span class="pkg-price">RM25</span>
+        </button>
+        <button class="pkg-card popular" data-pax="10" onclick="selectPackage(10)">
+          <span class="pkg-badge">POPULAR</span>
+          <span class="pkg-pax">10</span>
+          <span class="pkg-unit">PAX</span>
+          <span class="pkg-price">RM50</span>
+        </button>
+        <button class="pkg-card" data-pax="20" onclick="selectPackage(20)">
+          <span class="pkg-pax">20</span>
+          <span class="pkg-unit">PAX</span>
+          <span class="pkg-price">RM100</span>
+        </button>
+        <button class="pkg-card" data-pax="50" onclick="selectPackage(50)">
+          <span class="pkg-pax">50</span>
+          <span class="pkg-unit">PAX</span>
+          <span class="pkg-price">RM250</span>
+        </button>
+        <button class="pkg-card vip" data-pax="100" onclick="selectPackage(100)">
+          <span class="pkg-badge">VIP</span>
+          <span class="pkg-pax">100</span>
+          <span class="pkg-unit">PAX</span>
+          <span class="pkg-price">RM500</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ DONOR MARQUEE ============ -->
+    <section class="donor-section">
+      <h2 class="section-title">🤲 Penyumbang Terkini</h2>
+      <div class="donor-feed" id="donorFeed">
+        <div class="donor-empty">Belum ada penyumbang baru. Jom jadi yang pertama! 🌟</div>
+      </div>
+    </section>
+
+    <!-- ============ COUNTDOWN ============ -->
+    <section class="countdown-section">
+      <h2 class="section-title">⏰ Countdown Agihan</h2>
+      <div class="countdown-grid">
+        <div class="countdown-item cd-days-hidden" id="cdDaysWrapper">
+          <span class="cd-value" id="cdDays">0</span>
+          <span class="cd-label">Hari</span>
+        </div>
+        <div class="countdown-sep cd-days-hidden" id="cdDaysSep">:</div>
+        <div class="countdown-item">
+          <span class="cd-value" id="cdHours">00</span>
+          <span class="cd-label">Jam</span>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-item">
+          <span class="cd-value" id="cdMinutes">00</span>
+          <span class="cd-label">Minit</span>
+        </div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-item">
+          <span class="cd-value" id="cdSeconds">00</span>
+          <span class="cd-label">Saat</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ADMIN PANEL ============ -->
+    <section class="admin-section" id="adminPanel">
+      <h2 class="section-title">⚙️ Admin Controls</h2>
+      <div class="admin-form">
+
+        <!-- QUICK ADD DONOR (Mobile-First) -->
+        <div class="quick-add-section">
+          <label class="quick-label">👤 Nama Penyumbang</label>
+          <input type="text" id="donorName" class="input-big" placeholder="Taip nama..." autocomplete="off" />
+
+          <label class="quick-label">📦 Pilih Pax (Tap Sekali Terus Tambah!)</label>
+          <div class="quick-pax-grid">
+            <button class="quick-pax-btn" onclick="quickAddDonor(1)">1 pax<br><small>RM5</small></button>
+            <button class="quick-pax-btn" onclick="quickAddDonor(2)">2 pax<br><small>RM10</small></button>
+            <button class="quick-pax-btn" onclick="quickAddDonor(5)">5 pax<br><small>RM25</small></button>
+            <button class="quick-pax-btn" onclick="quickAddDonor(10)">10 pax<br><small>RM50</small></button>
+            <button class="quick-pax-btn" onclick="quickAddDonor(20)">20 pax<br><small>RM100</small></button>
+            <button class="quick-pax-btn" onclick="quickAddDonor(50)">50 pax<br><small>RM250</small></button>
+          </div>
+
+          <div class="quick-custom-row">
+            <input type="number" id="donorPax" class="input-big" placeholder="Pax lain..." min="1" autocomplete="off" />
+            <input type="text" id="donorRef" class="input-big" placeholder="Ref (optional)" autocomplete="off" />
+            <button class="btn btn-primary btn-big" onclick="addDonor()">
+              ✅ Tambah
+            </button>
+          </div>
+        </div>
+
+        <!-- COLLAPSIBLE: SETTINGS -->
+        <details class="admin-details">
+          <summary class="admin-summary">🔧 Tetapan Target & Sesi</summary>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="targetInput">Set Target Pax</label>
+              <input type="number" id="targetInput" class="input-big" placeholder="2000" min="1" />
+            </div>
+            <div class="form-group">
+              <label for="startPax">Set Pax Semasa</label>
+              <input type="number" id="startPax" class="input-big" placeholder="500" min="0" />
+            </div>
+            <div class="form-group form-group-btn">
+              <button class="btn btn-secondary btn-big" onclick="updateTarget()">🎯 Update Target</button>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="distributionInput">Tarikh & Masa Agihan</label>
+              <input type="datetime-local" id="distributionInput" class="input-big" />
+            </div>
+            <div class="form-group">
+              <label for="locationInput">Lokasi Agihan</label>
+              <input type="text" id="locationInput" class="input-big" placeholder="Taman Melawati" />
+            </div>
+            <div class="form-group form-group-btn">
+              <button class="btn btn-secondary btn-big" onclick="updateSessionMeta()">🗓️ Update Sesi</button>
+            </div>
+          </div>
+        </details>
+
+        <div class="admin-actions">
+          <button class="btn btn-boost btn-big" onclick="boostTo2000()">🔥 Set Target 2000</button>
+          <button class="btn btn-outline btn-big" onclick="exportCSV()">📥 Export CSV</button>
+          <button class="btn btn-outline btn-big" onclick="toggleLive()">🔴 Toggle Live</button>
+          <button class="btn btn-danger btn-big" onclick="resetAll()">🗑️ Reset Semua</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DONOR TABLE ============ -->
+    <section class="table-section" id="tableSection">
+      <h2 class="section-title">📋 Senarai Penuh Penyumbang</h2>
+      <div class="table-wrapper">
+        <table class="donor-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Masa</th>
+              <th>Nama</th>
+              <th>Pax</th>
+              <th>RM</th>
+              <th>Ref</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="donorTableBody">
+            <tr class="table-empty">
+              <td colspan="8">Belum ada rekod</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <p>🌙 Misi Bubur Lambuk Sedekah Ramadan 2026</p>
+      <p class="footer-sub">Setiap RM5 = 1 pax. Setiap pax = 1 saudara dapat makan.</p>
+    </footer>
+  </div>
+
+  <!-- ============ TOAST ============ -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- ============ CONFETTI CANVAS ============ -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
